@@ -10,6 +10,8 @@ const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
 // services/api.js
 export const getTrendingTokens = async (chain = "", limit = 100) => {
   try {
+
+    console.log(API_KEY)
     // Only add chain parameter if it's not empty
     const chainParam = chain ? `&chain=${chain}` : "";
     const url = `https://deep-index.moralis.io/api/v2.2/tokens/trending?limit=${limit}${chainParam}`;

@@ -1,5 +1,5 @@
 import React from "react";
-import LeftSidebar from "./LeftSidebar";
+import LeftSidebar from "./LeftSideBar";
 
 const MainLayout = ({ children, openSearchModal }) => {
   return (
