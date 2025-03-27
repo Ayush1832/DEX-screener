@@ -1,4 +1,3 @@
-
 const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
 
 /**
@@ -10,12 +9,13 @@ const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
 // services/api.js
 export const getTrendingTokens = async (chain = "", limit = 100) => {
   try {
+    console.log("Input Chain:", chain);
+    console.log("Limit:", limit);
 
-    console.log(API_KEY)
     // Only add chain parameter if it's not empty
     const chainParam = chain ? `&chain=${chain}` : "";
     const url = `https://deep-index.moralis.io/api/v2.2/tokens/trending?limit=${limit}${chainParam}`;
-    console.log("Fetching trending tokens from:", url);
+    console.log("Full API URL:", url);
 
     const response = await fetch(url, {
       headers: {
@@ -24,14 +24,23 @@ export const getTrendingTokens = async (chain = "", limit = 100) => {
       },
     });
 
+    // Log full response for debugging
+    const responseText = await response.text();
+    console.log("Response Status:", response.status);
+    console.log("Response Body:", responseText);
+
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      throw new Error(`API error: ${response.status} - ${responseText}`);
     }
 
-    const data = await response.json();
+    const data = JSON.parse(responseText);
     return Array.isArray(data) ? data : data.result || [];
   } catch (error) {
-    console.error("Error fetching trending tokens:", error);
+    console.error("Detailed Error in getTrendingTokens:", {
+      message: error.message,
+      name: error.name,
+      stack: error.stack,
+    });
     throw error;
   }
 };

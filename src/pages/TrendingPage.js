@@ -1,4 +1,3 @@
-// pages/TrendingPage.js
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TopBar from "../components/layout/TopBar";
@@ -6,7 +5,6 @@ import TrendingTable from "../components/trending/TrendingTable";
 import { getTrendingTokens } from "../services/api";
 import FiltersModal from "../components/modals/FiltersModal";
 
-// Map URL path segments to chain IDs for API
 const PATH_TO_CHAIN_ID = {
   ethereum: "0x1",
   binance: "0x38",
@@ -32,7 +30,6 @@ const TrendingPage = () => {
   const [isFiltersModalOpen, setFiltersModalOpen] = useState(false);
   const [isFiltered, setIsFiltered] = useState(false);
 
-  // Add the handler for applying filters
   const handleApplyFilters = (filteredTokens) => {
     setTokens(filteredTokens);
     setIsFiltered(true);
@@ -45,16 +42,16 @@ const TrendingPage = () => {
   const fetchTokens = async () => {
     setLoading(true);
     try {
-      // Convert URL path parameter to chain ID for API
+      // Enhanced logging to diagnose chain ID issues
+      console.log('Raw URL chainId:', chainId);
       const apiChainId = chainId ? PATH_TO_CHAIN_ID[chainId] || chainId : "";
-      console.log(
-        `Fetching tokens for chain: ${apiChainId} (from URL: ${chainId})`
-      );
+      console.log(`Converted API Chain ID: ${apiChainId}`);
 
       const data = await getTrendingTokens(apiChainId);
       setTokens(data);
     } catch (error) {
-      console.error("Error fetching tokens:", error);
+      console.error("Full Error Details:", error);
+      console.error("Error Message:", error.message);
       setTokens([]);
     } finally {
       setLoading(false);
