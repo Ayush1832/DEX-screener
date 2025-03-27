@@ -20,10 +20,10 @@ const LeftSidebar = ({ openSearchModal }) => {
               <span className="text-green-400 text-xl font-mono">
                 <span className="text-2xl">&#9002;</span>
               </span>
-              <span className="font-bold text-lg">DEX Terminal</span>
+              <span className="font-bold text-lg">DEX Screener</span>
             </div>
             <span className="text-xs text-gray-400 ml-7">
-              Powered by Moralis
+              By Ayush
             </span>
           </div>
         </Link>
